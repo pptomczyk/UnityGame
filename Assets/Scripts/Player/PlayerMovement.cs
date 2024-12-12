@@ -8,11 +8,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 direction;
     private Vector2 mouseTarget;
     bool movingWithMouse;
+    private SpriteRenderer sp;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         this.rb = GetComponent<Rigidbody2D>();
+        this.sp = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -44,14 +46,15 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector2 moveDirection = (mouseTarget - (Vector2)transform.position).normalized;
             this.rb.linearVelocity = moveDirection * movement_speed;
+            if(moveDirection.x < 0) this.sp.flipX = true;
+            if(moveDirection.x > 0) this.sp.flipX = false;
         }
         else
         {
             this.rb.linearVelocity = direction.normalized * movement_speed;
-            if(direction == Vector2.zero)
-            {
-                 this.rb.linearVelocity = Vector2.zero;
-            }
+            if(direction.x < 0) this.sp.flipX = true;
+            if(direction.x > 0) this.sp.flipX = false;
+            
         }
         
         
