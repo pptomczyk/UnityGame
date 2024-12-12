@@ -48,6 +48,10 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             this.rb.linearVelocity = direction.normalized * movement_speed;
+            if(direction == Vector2.zero)
+            {
+                 this.rb.linearVelocity = Vector2.zero;
+            }
         }
         
         
