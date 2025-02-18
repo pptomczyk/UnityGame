@@ -4,6 +4,7 @@ public class InteractionObjectAnimation : MonoBehaviour
 {
   public SpriteRenderer spriteRenderer;
   public Sprite[] sprites;
+  public GameObject notification;
   public int animationFrame;
 
   private void Awake()
@@ -12,29 +13,31 @@ public class InteractionObjectAnimation : MonoBehaviour
         animationFrame = 0;
     }
 
-  public void Using()
+  public void CanUse()
   {
-    this.animationFrame++;
-    this.spriteRenderer.sprite = this.sprites[this.animationFrame];
+    //this.animationFrame++;
+    //this.spriteRenderer.sprite = this.sprites[this.animationFrame];
+    notification.SetActive(true);
   }
 
-    public void StopUsing()
+    public void CantUse()
   {
-    this.animationFrame--;
-    this.spriteRenderer.sprite = this.sprites[this.animationFrame];
+    //this.animationFrame--;
+    //this.spriteRenderer.sprite = this.sprites[this.animationFrame];
+    notification.SetActive(false);
   }
 
   private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Player")){
-            Using();
+        if(other.gameObject.layer == LayerMask.NameToLayer("Interaction")){
+            CanUse();
         }
     }
   
   private void OnTriggerExit2D(Collider2D other)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Player")){
-            StopUsing();
+        if(other.gameObject.layer == LayerMask.NameToLayer("Interaction")){
+            CantUse();
         }
     }
 }
