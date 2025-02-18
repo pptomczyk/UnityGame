@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // wsad movement
-        direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         //mouse movement
         if(Input.GetMouseButtonDown(0))
         {
@@ -36,8 +36,9 @@ public class PlayerMovement : MonoBehaviour
         if(direction != Vector2.zero)
         {
             movingWithMouse = false;
-            this.rb.linearVelocity = Vector2.zero;
+
         }
+      
     }
 
     void FixedUpdate()
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector2 moveDirection = (mouseTarget - (Vector2)transform.position).normalized;
             this.rb.linearVelocity = moveDirection * movement_speed;
+           
             if(moveDirection.x < 0) this.sp.flipX = true;
             if(moveDirection.x > 0) this.sp.flipX = false;
         }
@@ -53,11 +55,7 @@ public class PlayerMovement : MonoBehaviour
         {
             this.rb.linearVelocity = direction.normalized * movement_speed;
             if(direction.x < 0) this.sp.flipX = true;
-            if(direction.x > 0) this.sp.flipX = false;
-            
-        }
-        
-        
-        
+            if(direction.x > 0) this.sp.flipX = false;   
+        }     
     }
 }
